@@ -1,15 +1,11 @@
 ﻿using Northwind.Common.Data.Base;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Northwind.Products.Domain.Entities
 {
-    public abstract class Product : AuditEntity<int>
+    public class Product : AuditEntity<int>
     {
         [Column("ProductID")]
         public override int Id { get; set; }

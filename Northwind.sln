@@ -71,7 +71,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Products.Persiste
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Shippers.Persistence", "Northwind.Shippers.Persistence\Northwind.Shippers.Persistence.csproj", "{C9EF8062-0102-41DD-A08D-B1983F930044}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Suppliers.Persistence", "Northwind.Suppliers.Persistence\Northwind.Suppliers.Persistence.csproj", "{32DF815B-F424-4AA7-B48C-659CD3172B90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Suppliers.Persistence", "Northwind.Suppliers.Persistence\Northwind.Suppliers.Persistence.csproj", "{32DF815B-F424-4AA7-B48C-659CD3172B90}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IOC", "IOC", "{508A9D58-6206-4D71-A481-0FCBBC149D91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nortwind.Product.IOC", "Nortwind.Product.IOC\Nortwind.Product.IOC.csproj", "{AAB1DE14-DD12-494A-809A-F59076AB77AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,6 +139,10 @@ Global
 		{32DF815B-F424-4AA7-B48C-659CD3172B90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32DF815B-F424-4AA7-B48C-659CD3172B90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32DF815B-F424-4AA7-B48C-659CD3172B90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAB1DE14-DD12-494A-809A-F59076AB77AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAB1DE14-DD12-494A-809A-F59076AB77AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAB1DE14-DD12-494A-809A-F59076AB77AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAB1DE14-DD12-494A-809A-F59076AB77AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -174,6 +182,8 @@ Global
 		{4253A411-142B-40F7-8C7E-92005F4203EF} = {C8FCB7E5-7F26-4543-BD01-04F71DCF3AF6}
 		{C9EF8062-0102-41DD-A08D-B1983F930044} = {5024C5D9-BF8A-49F9-9368-909441D1DBF4}
 		{32DF815B-F424-4AA7-B48C-659CD3172B90} = {F0CC5AB8-E3DC-41B8-A40D-EC3BC5B20342}
+		{508A9D58-6206-4D71-A481-0FCBBC149D91} = {E3E4B2C5-830A-4F5A-9397-452EDDCFADB3}
+		{AAB1DE14-DD12-494A-809A-F59076AB77AA} = {508A9D58-6206-4D71-A481-0FCBBC149D91}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FB38D247-3A07-4997-A216-BBB4CBEB71FE}

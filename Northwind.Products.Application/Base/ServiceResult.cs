@@ -10,12 +10,10 @@ namespace Northwind.Products.Application.Core
     {
         public ServiceResult()
         {
-            this.Sucsses = true;
+            this.Success = true;
         }
-
-
-        public string? message { get; set; }
-        public bool Sucsses { get; set; }
+        public string? Message { get; set; }
+        public bool Success { get; set; }
         public dynamic? Result { get; set; } = null;
     }
 }
