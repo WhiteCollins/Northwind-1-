@@ -1,18 +1,8 @@
-﻿using Northwind.Common.Data.Base;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-
-namespace Northwind.Suppliers.Domain.Entities
+﻿
+namespace Northwind.Suppliers.Application.Dtos
 {
-    public class Suppliers: AuditEntity<int>
+    public class SuppliersDtoSave : SuppliersDtoBase
     {
-        [Column("SuppliersID")]
-        public override int Id { get; set; }
-
-
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SupplierID { get; set; }
         public string CompanyName { get; set; }
         public string ContactName { get; set; }
@@ -25,6 +15,6 @@ namespace Northwind.Suppliers.Domain.Entities
         public string Phone { get; set; }
         public string Fax { get; set; }
         public string HomePage { get; set; }
-    
+
     }
 }

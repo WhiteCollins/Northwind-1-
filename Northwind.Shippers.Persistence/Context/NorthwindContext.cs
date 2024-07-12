@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Northwind.Shippers.Domain.Entities;
+using Northwind.Common.Data.Base;
 
 namespace Northwind.Shippers.Persistence.Context
 {

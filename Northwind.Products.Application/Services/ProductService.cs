@@ -1,12 +1,9 @@
-﻿
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Northwind.Products.Application.Contracts;
 using Northwind.Products.Application.Core;
 using Northwind.Products.Application.Dtos;
-using Northwind.Products.Application.Extentions;
+using Northwind.Products.Application.Extensions;
 using Northwind.Products.Domain.Interface;
-using Northwind.Suppliers.Domain.Entities;
-
 
 namespace Northwind.Products.Application.Services
 {
@@ -44,7 +41,6 @@ namespace Northwind.Products.Application.Services
                         UnitPrice = (decimal)product.UnitPrice,
                         SupplierID = product.SupplierID,
                         CategoryID = product.CategoryID,
-
                     };
                     result.Success = true;
                 }
@@ -58,7 +54,6 @@ namespace Northwind.Products.Application.Services
 
             return result;
         }
-
 
         public ServiceResult GetProductById(int id)
         {
@@ -178,6 +173,7 @@ namespace Northwind.Products.Application.Services
             return result;
         }
 
+        // Implement the async methods as well if required
         public Task<ServiceResult> GetAll()
         {
             throw new NotImplementedException();

@@ -1,7 +1,7 @@
 ﻿using Northwind.Products.Application.Core;
 using Northwind.Products.Application.Dtos;
 
-namespace Northwind.Products.Application.Extentions
+namespace Northwind.Products.Application.Extensions
 {
     public static class ValidateProduct
     {
@@ -36,11 +36,18 @@ namespace Northwind.Products.Application.Extentions
                 result.Message = $"Debe seleccionar la categoría a la que pertenece el producto.";
                 return result;
             }
-            if (baseProduct?.SupplierID==0) {
+
+            if (baseProduct?.SupplierID == 0)
+            {
                 result.Success = false;
                 result.Message = $"Debe seleccionar el proveedor del producto.";
                 return result;
             }
+
+            // If all validations pass
+            result.Success = true;
+            result.Message = "El producto es válido.";
+            return result;
         }
     }
 }

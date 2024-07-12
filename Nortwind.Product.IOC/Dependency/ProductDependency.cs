@@ -1,6 +1,4 @@
-﻿
-
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Northwind.Products.Application.Contracts;
 using Northwind.Products.Application.Services;
 using Northwind.Products.Domain.Interface;
