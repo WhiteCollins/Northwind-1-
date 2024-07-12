@@ -13,8 +13,8 @@ namespace Northwind.Products.Persistence.Context
         #endregion
 
         #region "Db Sets"
-        public DbSet<Product> Products { get; set; }   
-        public DbSet<Domain.Entities.Product> Product { get; set; }
+        public DbSet<Domain.Entities.Products> Products { get; set; }   
+        public DbSet<Domain.Entities.Products> Product { get; set; }
         #endregion
 
     }

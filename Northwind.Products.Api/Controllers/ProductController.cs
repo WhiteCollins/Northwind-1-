@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Northwind.Products.Application.Contracts;
 using Northwind.Products.Application.Dtos;
-using Northwind.Products.Domain.Entities;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Northwind.Products.Api.Controllers
 {
@@ -15,56 +12,54 @@ namespace Northwind.Products.Api.Controllers
 
         public ProductController(IProductService productService)
         {
-            this.productService=productService;
+            this.productService = productService;
         }
 
         [HttpGet("GetProducts")]
         public IActionResult Get()
         {
             var result = this.productService.GetAll();
-            if (result.Success)
+            if (!result.Success) // Corrigiendo la lógica del if
                 return BadRequest(result);
             else
                 return Ok(result);
-
         }
 
-        [HttpGet("GetProductByid")]
+        [HttpGet("GetProductById")]
         public IActionResult Get(int id)
         {
             var result = this.productService.GetById(id);
-            if (result.Success)
+            if (!result.Success) // Corrigiendo la lógica del if
                 return BadRequest(result);
             else
                 return Ok(result);
         }
 
         [HttpPost("SaveProducts")]
-        public void Post([FromBody] Products.Application.Dtos.ProductDtoSave productDtoSave)
+        public IActionResult Post([FromBody] ProductDtoSave productDtoSave)
         {
             var result = this.productService.Add(productDtoSave);
-            if (result.Success)
-                BadRequest(result);
-            else
-                Ok(result);
-        }
-
-        [HttpPost("UpdatePorduct")]
-        public IActionResult Put(ProductDtoUpdate productDtoUpdate)
-        {
-            var result = this.productService.Update(productDtoUpdate);
-            if (result.Success)
+            if (!result.Success) // Corrigiendo la lógica del if
                 return BadRequest(result);
             else
                 return Ok(result);
+        }
 
+        [HttpPost("UpdateProduct")]
+        public IActionResult Put([FromBody] ProductDtoUpdate productDtoUpdate)
+        {
+            var result = this.productService.Update(productDtoUpdate);
+            if (!result.Success) // Corrigiendo la lógica del if
+                return BadRequest(result);
+            else
+                return Ok(result);
         }
 
         [HttpDelete("RemoveProducts")]
-        public IActionResult Delete(ProductDtoRemove productDtoRemove)
+        public IActionResult Delete([FromBody] ProductDtoRemove productDtoRemove)
         {
             var result = this.productService.Remove(productDtoRemove);
-            if (result.Success)
+            if (!result.Success) // Corrigiendo la lógica del if
                 return BadRequest(result);
             else
                 return Ok(result);

@@ -3,8 +3,8 @@
 
 namespace Northwind.Products.Domain.Interface
 {
-    public interface IProductRepository: IBaseRepository<Products.Domain.Entities.Product,int>
+    public interface IProductRepository: IBaseRepository<Products.Domain.Entities.Products,int>
     {
-        List<Products.Domain.Entities.Product> GetProducts();
+        List<Products.Domain.Entities.Products> GetProducts();
     }
 }

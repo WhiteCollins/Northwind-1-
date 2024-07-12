@@ -93,7 +93,7 @@ namespace Northwind.Products.Application.Services
                     return result;
                 }
 
-                Domain.Entities.Product product = new Domain.Entities.Product()
+                Domain.Entities.Products product = new Domain.Entities.Products()
                 {
                     ProductID = productDtoRemove.ProductID,
                 };
@@ -121,7 +121,7 @@ namespace Northwind.Products.Application.Services
                 if (!result.Success)
                     return result;
 
-                Domain.Entities.Product product = new Domain.Entities.Product()
+                Domain.Entities.Products product = new Domain.Entities.Products()
                 {
                     CategoryID = productDtoSave.CategoryID,
                     SupplierID = productDtoSave.SupplierID,
@@ -152,7 +152,7 @@ namespace Northwind.Products.Application.Services
                 if (!result.Success)
                     return result;
 
-                Domain.Entities.Product product = new Domain.Entities.Product()
+                Domain.Entities.Products product = new Domain.Entities.Products()
                 {
                     CategoryID = productDtoUpdate.CategoryID,
                     SupplierID = productDtoUpdate.SupplierID,

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Northwind.Products.Domain.Entities
 {
-    public class Product : AuditEntity<int>
+    public class Products : AuditEntity<int>
     {
         [Column("ProductID")]
         public override int Id { get; set; }

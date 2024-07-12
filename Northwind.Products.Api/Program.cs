@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Northwind.Products.Application.Contracts;
+using Northwind.Products.Application.Services;
 using Northwind.Products.Domain.Interface;
 using Northwind.Products.Persistence.Context;
 using Northwind.Products.Persistence.Repository;
@@ -13,10 +15,11 @@ var connstring = builder.Configuration.GetConnectionString("NorthwindContext");
 
 
 builder.Services.AddDbContext<NorthwindContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("NorthwindContext")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("NorthwindContext")));
+
 
 // Agregar las dependencias del objeto de datos //
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 
 builder.Services.AddProductDependency();
