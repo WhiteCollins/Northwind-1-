@@ -8,7 +8,7 @@ namespace Northwind.Shippers.Domain.Entities
     {
         [Column("ShipperID")]
         public override int Id { get; set; }
-        public string CompanyName { get; set; }
+        public string? CompanyName { get; set; }
         public string? Phone { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace Northwind.Shippers.Api.Controllers
 
         public ShippersController(IShippersService shipperService)
         {
-            this.shipperService=shipperService;
+            this.shipperService=shipperService = shipperService ?? throw new ArgumentNullException(nameof(shipperService));
         }
 
 
@@ -24,12 +24,20 @@ namespace Northwind.Shippers.Api.Controllers
         public IActionResult Get()
         {
             var result = this.shipperService.GetAll();
+            if (result == null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
+            }
             if (result.Success)
-                return BadRequest(result);
-            else
+            {
                 return Ok(result);
-
+            }
+            else
+            {
+                return BadRequest(result);
+            }
         }
+
 
         // GET api/<ShippersController>/5
         [HttpGet("GetShippersByid")]
