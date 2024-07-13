@@ -2,6 +2,5 @@
 {
     public class ProductDtoRemove: ProductDtoBase
     {
-        public int ProductID { get; set; }
     }
 }

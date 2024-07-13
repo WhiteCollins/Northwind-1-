@@ -6,13 +6,9 @@ namespace Northwind.Shippers.Domain.Entities
 {
     public class Shippers : AuditEntity<int>
     {
-        [Column("ShippersID")]
+        [Column("ShipperID")]
         public override int Id { get; set; }
-
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ShipperID { get; set; }
         public string CompanyName { get; set; }
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
     }
 }

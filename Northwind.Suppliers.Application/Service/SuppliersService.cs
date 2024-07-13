@@ -29,7 +29,7 @@ namespace Northwind.Suppliers.Application.Services
                 result.Result = (from supplier in suppliers
                                  select new SuppliersDtoGetAll()
                                  {
-                                     SupplierID = supplier.SupplierID,
+                                     SupplierID = supplier.Id,
                                      CompanyName = supplier.CompanyName,
                                      ContactName = supplier.ContactName,
                                      ContactTitle = supplier.ContactTitle,
@@ -70,7 +70,7 @@ namespace Northwind.Suppliers.Application.Services
                 {
                     result.Result = new SuppliersDtoGetAll()
                     {
-                        SupplierID = supplier.SupplierID,
+                        SupplierID = supplier.Id,
                         CompanyName = supplier.CompanyName,
                         ContactName = supplier.ContactName,
                         ContactTitle = supplier.ContactTitle,
@@ -148,7 +148,7 @@ namespace Northwind.Suppliers.Application.Services
 
                 var supplier = new Domain.Entities.Suppliers()
                 {
-                    SupplierID = suppliersDtoBase.SupplierID,
+                    Id = suppliersDtoBase.SupplierID,
                     CompanyName = suppliersDtoBase.CompanyName,
                     ContactName = suppliersDtoBase.ContactName,
                     ContactTitle = suppliersDtoBase.ContactTitle,
@@ -190,7 +190,7 @@ namespace Northwind.Suppliers.Application.Services
 
                 var supplier = new Domain.Entities.Suppliers()
                 {
-                    SupplierID = supplierDtoRemove.SupplierID
+                    Id = supplierDtoRemove.SupplierID
                 };
 
                 this.suppliersRepository.Remove(supplier);

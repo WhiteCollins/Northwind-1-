@@ -15,42 +15,43 @@ namespace Northwind.Products.Persistence.Repository
             _context = context;
         }
 
-        public bool Exists(Expression<Func<Domain.Entities.Products, bool>> filter)
+        public bool Exists(Expression<Func<Product, bool>> filter)
         {
             return _context.Products.Any(filter);
         }
 
-        public List<Domain.Entities.Products> GetAll()
+        public List<Product> GetAll()
         {
             return _context.Products.ToList();
         }
 
-        public Domain.Entities.Products GetEntityBy(int id)
+        public Product GetEntityBy(int id)
         {
             return _context.Products.Find(id);
         }
 
-        public List<Domain.Entities.Products> GetProducts()
-        {
-            return _context.Products.ToList();
-        }
-
-        public void Remove(Domain.Entities.Products entity)
+        public void Remove(Product entity)
         {
             _context.Products.Remove(entity);
             _context.SaveChanges();
         }
 
-        public void Save(Domain.Entities.Products entity)
+        public void Save(Product entity)
         {
             _context.Products.Add(entity);
             _context.SaveChanges();
         }
 
-        public void Update(Domain.Entities.Products entity)
+        public void Update(Product entity)
         {
             _context.Products.Update(entity);
             _context.SaveChanges();
+        }
+
+        // Implementación del método GetProducts
+        public List<Product> GetProducts()
+        {
+            return _context.Products.ToList();
         }
     }
 }
