@@ -47,12 +47,6 @@ namespace Northwind.Products.Application.Extensions
                 result.Message = $"El nivel de reorden no puede ser cero o negativo.";
                 return result;
             }
-            if (baseProduct?.Discontinued == true)
-            {
-                result.Success = false;
-                result.Message = $"El producto no puede estar descontinuado.";
-                return result;
-            }
             if (baseProduct?.SupplierID == 0 || baseProduct?.SupplierID < 0)
             {
                 result.Success = false;
@@ -63,12 +57,6 @@ namespace Northwind.Products.Application.Extensions
             {
                 result.Success = false;
                 result.Message = $"El ID de la categoría no puede ser cero o negativo.";
-                return result;
-            }
-            if (string.IsNullOrEmpty(baseProduct?.QuantityPerUnit))
-            {
-                result.Success = false;
-                result.Message = $"La cantidad por unidad es requerida.";
                 return result;
             }
           

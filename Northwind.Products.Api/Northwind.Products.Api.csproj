@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Northwind.Products.Persistence\Northwind.Products.Persistence.csproj" />
     <ProjectReference Include="..\Nortwind.Product.IOC\Nortwind.Product.IOC.csproj" />
   </ItemGroup>
 

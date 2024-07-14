@@ -52,7 +52,7 @@ namespace Northwind.Shippers.Api.Controllers
 
         // POST api/<ShippersController>
         [HttpPost("SaveShippers")]
-        public void Post([FromBody] Shippers.Application.Dtos.ShippersDtoSave  shippersDtoSave)
+        public void Post( Shippers.Application.Dtos.ShippersDtoSave  shippersDtoSave)
         {
             var result = this.shipperService.Add(shippersDtoSave);
             if (result.Success)

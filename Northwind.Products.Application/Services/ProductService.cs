@@ -1,11 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
+using Northwind.Products.Domain.Interface;
+using Northwind.Products.Domain.Entities;
 using Northwind.Products.Application.Contracts;
 using Northwind.Products.Application.Core;
 using Northwind.Products.Application.Dtos;
 using Northwind.Products.Application.Extensions;
-using Northwind.Products.Domain.Interface;
 
-namespace Northwind.Products.Application.Services
+namespace Northwind.Products.Service
 {
     public class ProductService : IProductService
     {
@@ -18,18 +19,45 @@ namespace Northwind.Products.Application.Services
             this.logger = logger;
         }
 
-        public ServiceResult GetProduct(int productId)
+        public ServiceResult GetAll()
+        {
+            ServiceResult result = new ServiceResult();
+            try
+            {
+                var products = this.productRepository.GetAll();
+
+                result.Result = (from product in products
+                                 select new ProductDtoGetAll()
+                                 {
+                                     ProductID = product.ProductID,
+                                     ProductName = product.ProductName,
+                                     Discontinued = product.Discontinued
+                                 }).ToList();
+
+                result.Success = true;
+                result.Message = "Products successfully obtained.";
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Message = "Error obtaining products.";
+                this.logger.LogError(result.Message, ex);
+            }
+            return result;
+        }
+
+        public ServiceResult GetById(int id)
         {
             ServiceResult result = new ServiceResult();
 
             try
             {
-                var product = this.productRepository.GetEntityBy(productId);
+                var product = this.productRepository.GetEntityBy(id);
 
                 if (product == null)
                 {
                     result.Success = false;
-                    result.Message = $"No se encontró el producto con ID: {productId}.";
+                    result.Message = $"No product found with ID: {id}.";
                 }
                 else
                 {
@@ -37,9 +65,13 @@ namespace Northwind.Products.Application.Services
                     {
                         ProductID = product.ProductID,
                         ProductName = product.ProductName,
-                        UnitPrice = product.UnitPrice,
                         SupplierID = product.SupplierID,
                         CategoryID = product.CategoryID,
+                        UnitPrice = product.UnitPrice,
+                        UnitsInStock = product.UnitsInStock,
+                        UnitsOnOrder = product.UnitsOnOrder,
+                        ReorderLevel = product.ReorderLevel,
+                        Discontinued = product.Discontinued
                     };
                     result.Success = true;
                     result.Message = "Product successfully obtained.";
@@ -48,83 +80,14 @@ namespace Northwind.Products.Application.Services
             catch (Exception ex)
             {
                 result.Success = false;
-                result.Message = "Error obteniendo el producto.";
-                this.logger.LogError(ex, result.Message);
+                result.Message = "Error obtaining the product.";
+                this.logger.LogError(result.Message, ex);
             }
 
             return result;
         }
 
-        public ServiceResult GetProductById(int id)
-        {
-            ServiceResult result = new ServiceResult();
-
-            try
-            {
-                var product = (from p in productRepository.GetAll()
-                               where p.ProductID == id
-                               select new ProductDtoGetAll()
-                               {
-                                   ProductID = p.ProductID,
-                                   UnitPrice = p.UnitPrice,
-                                   ProductName = p.ProductName
-                               }).FirstOrDefault();
-
-                if (product == null)
-                {
-                    result.Success = false;
-                    result.Message = $"No se encontró el producto con ID: {id}.";
-                }
-                else
-                {
-                    result.Result = product;
-                    result.Success = true;
-                    result.Message = "The Id product successfully obtained.";
-                }
-            }
-            catch (Exception ex)
-            {
-                result.Success = false;
-                result.Message = "Error obteniendo el producto.";
-                this.logger.LogError(ex, result.Message);
-            }
-
-            return result;
-        }
-
-        public ServiceResult RemoveProduct(ProductDtoRemove? productDtoRemove)
-        {
-            ServiceResult result = new ServiceResult();
-
-            try
-            {
-                if (productDtoRemove == null)
-                {
-                    result.Success = false;
-                    result.Message = $"El objeto {nameof(productDtoRemove)} es requerido.";
-                    return result;
-                }
-
-                var product = new Domain.Entities.Product()
-                {
-                    ProductID = productDtoRemove.ProductID,
-                };
-
-                this.productRepository.Remove(product);
-                result.Success = true;
-                result.Message = "Producto eliminado correctamente.";
-            }
-            catch (Exception ex)
-            {
-                result.Success = false;
-                result.Message = "Error removiendo el producto.";
-                this.logger.LogError(ex, result.Message);
-            }
-
-            return result;
-        }
-
-        public ServiceResult SaveProduct(ProductDtoSave? productDtoSave)
+        public ServiceResult Add(ProductDtoSave productDtoSave)
         {
             ServiceResult result = new ServiceResult();
 
@@ -135,29 +98,33 @@ namespace Northwind.Products.Application.Services
                 if (!result.Success)
                     return result;
 
-                var product = new Domain.Entities.Product()
+                var product = new Product()
                 {
-                    CategoryID = productDtoSave.CategoryID,
-                    SupplierID = productDtoSave.SupplierID,
                     ProductName = productDtoSave.ProductName,
+                    SupplierID = productDtoSave.SupplierID,
+                    CategoryID = productDtoSave.CategoryID,
                     UnitPrice = productDtoSave.UnitPrice,
+                    UnitsInStock = productDtoSave.UnitsInStock,
+                    UnitsOnOrder = productDtoSave.UnitsOnOrder,
+                    ReorderLevel = productDtoSave.ReorderLevel,
+                    Discontinued = productDtoSave.Discontinued
                 };
 
                 this.productRepository.Save(product);
                 result.Success = true;
-                result.Message = "Producto guardado correctamente.";
+                result.Message = "Product successfully added.";
             }
             catch (Exception ex)
             {
                 result.Success = false;
-                result.Message = "Error guardando el producto.";
-                this.logger.LogError(ex, result.Message);
+                result.Message = "Error saving the product.";
+                this.logger.LogError(result.Message, ex);
             }
 
             return result;
         }
 
-        public ServiceResult UpdateProduct(ProductDtoUpdate productDtoUpdate)
+        public ServiceResult Update(ProductDtoUpdate productDtoUpdate)
         {
             ServiceResult result = new ServiceResult();
 
@@ -168,196 +135,63 @@ namespace Northwind.Products.Application.Services
                 if (!result.Success)
                     return result;
 
-                var product = new Domain.Entities.Product()
+                var product = new Product()
                 {
-                    CategoryID = productDtoUpdate.CategoryID,
-                    SupplierID = productDtoUpdate.SupplierID,
-                    ProductName = productDtoUpdate.ProductName,
                     ProductID = productDtoUpdate.ProductID,
+                    ProductName = productDtoUpdate.ProductName,
+                    SupplierID = productDtoUpdate.SupplierID,
+                    CategoryID = productDtoUpdate.CategoryID,
                     UnitPrice = productDtoUpdate.UnitPrice,
+                    UnitsInStock = productDtoUpdate.UnitsInStock,
+                    UnitsOnOrder = productDtoUpdate.UnitsOnOrder,
+                    ReorderLevel = productDtoUpdate.ReorderLevel,
+                    Discontinued = productDtoUpdate.Discontinued
                 };
 
                 this.productRepository.Update(product);
                 result.Success = true;
-                result.Message = "Producto actualizado correctamente.";
+                result.Message = "Product successfully updated.";
             }
             catch (Exception ex)
             {
                 result.Success = false;
-                result.Message = "Error actualizando el producto.";
-                this.logger.LogError(ex, result.Message);
-            }
-
-            return result;
-        }
-        public async Task<ServiceResult> GetAll()
-        {
-            ServiceResult result = new ServiceResult();
-
-            try
-            {
-                var products = await Task.Run(() => productRepository.GetAll());
-                result.Result = products.Select(p => new ProductDtoGetAll
-                {
-                    ProductID = p.ProductID,
-                    ProductName = p.ProductName,
-                    UnitPrice = p.UnitPrice,
-                    SupplierID = p.SupplierID,
-                    CategoryID = p.CategoryID
-                }).ToList();
-                result.Success = true;
-            }
-            catch (Exception ex)
-            {
-                result.Success = false;
-                result.Message = "Error obteniendo los productos.";
-                this.logger.LogError(ex, result.Message);
+                result.Message = "Error updating the product.";
+                this.logger.LogError(result.Message, ex);
             }
 
             return result;
         }
 
-        public async Task<ServiceResult> GetById(int id)
+        public ServiceResult Remove(ProductDtoRemove productDtoRemove)
         {
             ServiceResult result = new ServiceResult();
 
             try
             {
-                var product = await Task.Run(() => productRepository.GetEntityBy(id));
-
-                if (product == null)
+                if (productDtoRemove == null)
                 {
                     result.Success = false;
-                    result.Message = $"No se encontró el producto con ID: {id}.";
+                    result.Message = $"The object {nameof(productDtoRemove)} is required.";
+                    return result;
                 }
-                else
+
+                var product = new Product()
                 {
-                    result.Result = new ProductDtoGetAll
-                    {
-                        ProductID = product.ProductID,
-                        ProductName = product.ProductName,
-                        UnitPrice = product.UnitPrice,
-                        SupplierID = product.SupplierID,
-                        CategoryID = product.CategoryID
-                    };
-                    result.Success = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                result.Success = false;
-                result.Message = "Error obteniendo el producto.";
-                this.logger.LogError(ex, result.Message);
-            }
-
-            return result;
-        }
-
-        public async Task<ServiceResult> Add(ProductDtoBase productDto)
-        {
-            ServiceResult result = new ServiceResult();
-
-            try
-            {
-                var product = new Domain.Entities.Product
-                {
-                    ProductName = productDto.ProductName,
-                    UnitPrice = productDto.UnitPrice,
-                    SupplierID = productDto.SupplierID,
-                    CategoryID = productDto.CategoryID
+                    ProductID = productDtoRemove.ProductID
                 };
 
-                await Task.Run(() => this.productRepository.Save(product));
+                this.productRepository.Remove(product);
                 result.Success = true;
-                result.Message = "Producto agregado correctamente.";
+                result.Message = "Product successfully removed.";
             }
             catch (Exception ex)
             {
                 result.Success = false;
-                result.Message = "Error agregando el producto.";
-                this.logger.LogError(ex, result.Message);
+                result.Message = "Error removing the product.";
+                this.logger.LogError(result.Message, ex);
             }
 
             return result;
-        }
-
-        public async Task<ServiceResult> Update(ProductDtoBase productDto)
-        {
-            ServiceResult result = new ServiceResult();
-
-            try
-            {
-                var product = new Domain.Entities.Product
-                {
-                    ProductID = productDto.ProductID,
-                    ProductName = productDto.ProductName,
-                    UnitPrice = productDto.UnitPrice,
-                    SupplierID = productDto.SupplierID,
-                    CategoryID = productDto.CategoryID
-                };
-
-                await Task.Run(() => this.productRepository.Update(product));
-                result.Success = true;
-                result.Message = "Producto actualizado correctamente.";
-            }
-            catch (Exception ex)
-            {
-                result.Success = false;
-                result.Message = "Error actualizando el producto.";
-                this.logger.LogError(ex, result.Message);
-            }
-
-            return result;
-        }
-
-        public async Task<ServiceResult> Remove(ProductDtoRemove productDto)
-        {
-            ServiceResult result = new ServiceResult();
-
-            try
-            {
-                var product = new Domain.Entities.Product
-                {
-                    ProductID = productDto.ProductID
-                };
-
-                await Task.Run(() => this.productRepository.Remove(product));
-                result.Success = true;
-                result.Message = "Producto removido correctamente.";
-            }
-            catch (Exception ex)
-            {
-                result.Success = false;
-                result.Message = "Error removiendo el producto.";
-                this.logger.LogError(ex, result.Message);
-            }
-
-            return result;
-        }
-
-        ServiceResult IProductService.GetAll()
-        {
-            return GetAll().Result;
-        }
-
-        ServiceResult IProductService.GetById(int id)
-        {
-            return GetById(id).Result;
-        }
-
-        ServiceResult IProductService.Add(ProductDtoSave product)
-        {
-            return Add(product).Result;
-        }
-
-        ServiceResult IProductService.Update(ProductDtoUpdate product)
-        {
-            return Update(product).Result;
-        }
-
-        ServiceResult IProductService.Remove(ProductDtoRemove product)
-        {
-            return Remove(product).Result;
         }
     }
 }

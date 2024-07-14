@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Northwind.Products.Application.Contracts;
-using Northwind.Products.Application.Services;
 using Northwind.Products.Domain.Interface;
 using Northwind.Products.Persistence.Repository;
+using Northwind.Products.Service;
 
 
 namespace Nortwind.Product.IOC.Dependency
