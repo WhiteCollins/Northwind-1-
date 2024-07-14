@@ -36,7 +36,7 @@ namespace Northwind.Products.Api.Controllers
         }
 
         [HttpPost("SaveProducts")]
-        public IActionResult Post([FromBody] ProductDtoSave productDtoSave)
+        public IActionResult Post( ProductDtoSave productDtoSave)
         {
             var result = this.productService.Add(productDtoSave);
             if (!result.Success) 
@@ -46,20 +46,20 @@ namespace Northwind.Products.Api.Controllers
         }
 
         [HttpPost("UpdateProduct")]
-        public IActionResult Put([FromBody] ProductDtoUpdate productDtoUpdate)
+        public IActionResult Put( ProductDtoUpdate productDtoUpdate)
         {
             var result = this.productService.Update(productDtoUpdate);
-            if (!result.Success) // Corrigiendo la lógica del if
+            if (!result.Success) 
                 return BadRequest(result);
             else
                 return Ok(result);
         }
 
         [HttpDelete("RemoveProducts")]
-        public IActionResult Delete([FromBody] ProductDtoRemove productDtoRemove)
+        public IActionResult Delete(ProductDtoRemove productDtoRemove)
         {
             var result = this.productService.Remove(productDtoRemove);
-            if (!result.Success) // Corrigiendo la lógica del if
+            if (!result.Success) 
                 return BadRequest(result);
             else
                 return Ok(result);

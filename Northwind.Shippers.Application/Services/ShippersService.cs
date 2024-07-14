@@ -123,7 +123,7 @@ namespace Northwind.Shippers.Application.Services
 
                 var shipper = new Domain.Entities.Shippers()
                 {
-                    Id = shippersDtoBase.ShippersID ,
+                    Id = shippersDtoBase.ShipperID ,
                     CompanyName = shippersDtoBase.CompanyName,
                     Phone = shippersDtoBase.Phone,
                 };

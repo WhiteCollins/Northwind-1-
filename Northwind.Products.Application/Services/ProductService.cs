@@ -5,18 +5,17 @@ using Northwind.Products.Application.Dtos;
 using Northwind.Products.Application.Extensions;
 using Northwind.Products.Domain.Interface;
 
-
 namespace Northwind.Products.Application.Services
 {
     public class ProductService : IProductService
     {
-        private readonly IProductRepository productRepository;
-        private readonly ILogger<ProductService> logger;
+        private readonly IProductRepository _productRepository;
+        private readonly ILogger<ProductService> _logger;
 
         public ProductService(IProductRepository productRepository, ILogger<ProductService> logger)
         {
-            this.productRepository = productRepository;
-            this.logger = logger;
+            _productRepository = productRepository;
+            _logger = logger;
         }
 
         public ServiceResult GetProduct(int productId)
@@ -25,7 +24,7 @@ namespace Northwind.Products.Application.Services
 
             try
             {
-                var product = this.productRepository.GetEntityBy(productId);
+                var product = _productRepository.GetEntityBy(productId);
 
                 if (product == null)
                 {
@@ -34,7 +33,7 @@ namespace Northwind.Products.Application.Services
                 }
                 else
                 {
-                    result.Result = new ProductDtoGetAll()
+                    result.Result = new ProductDtoGetAll
                     {
                         ProductID = product.ProductID,
                         ProductName = product.ProductName,
@@ -49,7 +48,7 @@ namespace Northwind.Products.Application.Services
             {
                 result.Success = false;
                 result.Message = "Error obteniendo el producto.";
-                this.logger.LogError(ex, result.Message);
+                _logger.LogError(ex, result.Message);
             }
 
             return result;
@@ -61,9 +60,9 @@ namespace Northwind.Products.Application.Services
 
             try
             {
-                var product = (from p in productRepository.GetAll()
-                               where p.ProductID == id
-                               select new ProductDtoGetAll()
+                var product = _productRepository.GetAll()
+                               .Where(p => p.ProductID == id)
+                               .Select(p => new ProductDtoGetAll
                                {
                                    ProductID = p.ProductID,
                                    UnitPrice = (decimal)p.UnitPrice,
@@ -85,7 +84,7 @@ namespace Northwind.Products.Application.Services
             {
                 result.Success = false;
                 result.Message = "Error obteniendo el producto.";
-                this.logger.LogError(ex, result.Message);
+                _logger.LogError(ex, result.Message);
             }
 
             return result;
@@ -104,19 +103,19 @@ namespace Northwind.Products.Application.Services
                     return result;
                 }
 
-                var product = new Domain.Entities.Product()
+                var product = new Domain.Entities.Product
                 {
                     ProductID = productDtoRemove.ProductID,
                 };
 
-                this.productRepository.Remove(product);
+                _productRepository.Remove(product);
                 result.Success = true;
             }
             catch (Exception ex)
             {
                 result.Success = false;
                 result.Message = "Error removiendo el producto.";
-                this.logger.LogError(ex, result.Message);
+                _logger.LogError(ex, result.Message);
             }
 
             return result;
@@ -133,7 +132,7 @@ namespace Northwind.Products.Application.Services
                 if (!result.Success)
                     return result;
 
-                var product = new Domain.Entities.Product()
+                var product = new Domain.Entities.Product
                 {
                     CategoryID = productDtoSave.CategoryID,
                     SupplierID = productDtoSave.SupplierID,
@@ -141,14 +140,14 @@ namespace Northwind.Products.Application.Services
                     UnitPrice = productDtoSave.UnitPrice,
                 };
 
-                this.productRepository.Save(product);
+                _productRepository.Save(product);
                 result.Success = true;
             }
             catch (Exception ex)
             {
                 result.Success = false;
                 result.Message = "Error guardando el producto.";
-                this.logger.LogError(ex, result.Message);
+                _logger.LogError(ex, result.Message);
             }
 
             return result;
@@ -165,7 +164,7 @@ namespace Northwind.Products.Application.Services
                 if (!result.Success)
                     return result;
 
-                var product = new Domain.Entities.Product()
+                var product = new Domain.Entities.Product
                 {
                     CategoryID = productDtoUpdate.CategoryID,
                     SupplierID = productDtoUpdate.SupplierID,
@@ -174,27 +173,26 @@ namespace Northwind.Products.Application.Services
                     UnitPrice = productDtoUpdate.UnitPrice,
                 };
 
-                this.productRepository.Update(product);
+                _productRepository.Update(product);
                 result.Success = true;
             }
             catch (Exception ex)
             {
                 result.Success = false;
                 result.Message = "Error actualizando el producto.";
-                this.logger.LogError(ex, result.Message);
+                _logger.LogError(ex, result.Message);
             }
 
             return result;
         }
 
-        // Métodos asincrónicos implementados de manera básica
         public async Task<ServiceResult> GetAll()
         {
             ServiceResult result = new ServiceResult();
 
             try
             {
-                var products = await Task.Run(() => productRepository.GetAll());
+                var products = await Task.Run(() => _productRepository.GetAll());
                 result.Result = products.Select(p => new ProductDtoGetAll
                 {
                     ProductID = p.ProductID,
@@ -209,7 +207,7 @@ namespace Northwind.Products.Application.Services
             {
                 result.Success = false;
                 result.Message = "Error obteniendo los productos.";
-                this.logger.LogError(ex, result.Message);
+                _logger.LogError(ex, result.Message);
             }
 
             return result;
@@ -221,7 +219,7 @@ namespace Northwind.Products.Application.Services
 
             try
             {
-                var product = await Task.Run(() => productRepository.GetEntityBy(id));
+                var product = await Task.Run(() => _productRepository.GetEntityBy(id));
 
                 if (product == null)
                 {
@@ -245,7 +243,7 @@ namespace Northwind.Products.Application.Services
             {
                 result.Success = false;
                 result.Message = "Error obteniendo el producto.";
-                this.logger.LogError(ex, result.Message);
+                _logger.LogError(ex, result.Message);
             }
 
             return result;
@@ -265,14 +263,14 @@ namespace Northwind.Products.Application.Services
                     CategoryID = productDto.CategoryID
                 };
 
-                await Task.Run(() => this.productRepository.Save(product));
+                await Task.Run(() => _productRepository.Save(product));
                 result.Success = true;
             }
             catch (Exception ex)
             {
                 result.Success = false;
                 result.Message = "Error agregando el producto.";
-                this.logger.LogError(ex, result.Message);
+                _logger.LogError(ex, result.Message);
             }
 
             return result;
@@ -293,14 +291,14 @@ namespace Northwind.Products.Application.Services
                     CategoryID = productDto.CategoryID
                 };
 
-                await Task.Run(() => this.productRepository.Update(product));
+                await Task.Run(() => _productRepository.Update(product));
                 result.Success = true;
             }
             catch (Exception ex)
             {
                 result.Success = false;
                 result.Message = "Error actualizando el producto.";
-                this.logger.LogError(ex, result.Message);
+                _logger.LogError(ex, result.Message);
             }
 
             return result;
@@ -317,20 +315,19 @@ namespace Northwind.Products.Application.Services
                     ProductID = productDto.ProductID
                 };
 
-                await Task.Run(() => this.productRepository.Remove(product));
+                await Task.Run(() => _productRepository.Remove(product));
                 result.Success = true;
             }
             catch (Exception ex)
             {
                 result.Success = false;
                 result.Message = "Error removiendo el producto.";
-                this.logger.LogError(ex, result.Message);
+                _logger.LogError(ex, result.Message);
             }
 
             return result;
         }
 
-        // Métodos sin implementar de la interfaz IProductService
         ServiceResult IProductService.GetAll()
         {
             return GetAll().Result;
@@ -346,7 +343,7 @@ namespace Northwind.Products.Application.Services
             return Add(product).Result;
         }
 
-        ServiceResult IProductService.Update(ProductDtoBase product)
+        ServiceResult IProductService.Update(ProductDtoUpdate product)
         {
             return Update(product).Result;
         }

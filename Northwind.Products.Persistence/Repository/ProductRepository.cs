@@ -32,9 +32,25 @@ namespace Northwind.Products.Persistence.Repository
 
         public void Remove(Product entity)
         {
-            _context.Products.Remove(entity);
-            _context.SaveChanges();
+            // Verificar si la entidad existe en la base de datos
+            var existingEntity = _context.Products.Find(entity.ProductID);
+            if (existingEntity == null)
+            {
+                throw new InvalidOperationException("The entity does not exist in the database.");
+            }
+
+            try
+            {
+                _context.Products.Remove(existingEntity);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                // Manejar la excepción de concurrencia
+                throw new InvalidOperationException("Concurrency conflict: The entity was modified or deleted by another process.", ex);
+            }
         }
+
 
         public void Save(Product entity)
         {

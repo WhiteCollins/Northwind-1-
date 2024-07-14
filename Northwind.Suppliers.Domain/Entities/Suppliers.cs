@@ -5,11 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Northwind.Suppliers.Domain.Entities
 {
+    [Table("Suppliers")]
     public class Suppliers: AuditEntity<int>
     {
         [Column("SupplierID")]
         public override int Id { get; set; }
-        public string? CompanyName { get; set; }
+        public string CompanyName { get; set; }
         public string? ContactName { get; set; }
         public string? ContactTitle { get; set; }
         public string? Address { get; set; }

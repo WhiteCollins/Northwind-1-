@@ -23,7 +23,7 @@ namespace Northwind.Products.Domain.Entities
 
         [Column("QuantityPerUnit")]
         [StringLength(20)]
-        public string QuantityPerUnit { get; set; }
+        public string? QuantityPerUnit { get; set; }
 
         [Column("UnitPrice")]
         public decimal? UnitPrice { get; set; }

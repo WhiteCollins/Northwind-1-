@@ -8,7 +8,7 @@ namespace Northwind.Products.Application.Contracts
         ServiceResult GetAll();
         ServiceResult GetById(int id);
         ServiceResult Add(ProductDtoBase product);
-        ServiceResult Update(ProductDtoBase product);
+        ServiceResult Update(ProductDtoUpdate product);
         ServiceResult Remove(ProductDtoRemove product);
     }
 }

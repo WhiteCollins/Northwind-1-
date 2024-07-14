@@ -1,5 +1,4 @@
-﻿using Northwind.Common.Data.Repository;
-using Northwind.Products.Domain.Entities;
+﻿using Northwind.Products.Domain.Entities;
 using System.Linq.Expressions;
 
 

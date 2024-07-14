@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Northwind.Suppliers.Application.Dtos
 {
-    public class SuppliersDtoRemove: SuppliersDtoBase
+    public class SuppliersDtoRemove
     {
         public int SupplierID { get; set; }
     }
