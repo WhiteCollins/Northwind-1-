@@ -29,22 +29,49 @@ namespace Northwind.Products.Application.Extensions
                 result.Message = $"El precio del producto no puede ser cero o negativo.";
                 return result;
             }
-
-            if (baseProduct?.CategoryID == 0)
+            if (baseProduct?.UnitsInStock == 0 || baseProduct?.UnitsInStock < 0)
             {
                 result.Success = false;
-                result.Message = $"Debe seleccionar la categoría a la que pertenece el producto.";
+                result.Message = $"La cantidad de unidades en stock no puede ser cero o negativo.";
                 return result;
             }
-
-            if (baseProduct?.SupplierID == 0)
+            if (baseProduct?.UnitsOnOrder == 0 || baseProduct?.UnitsOnOrder < 0)
             {
                 result.Success = false;
-                result.Message = $"Debe seleccionar el proveedor del producto.";
+                result.Message = $"La cantidad de unidades en orden no puede ser cero o negativo.";
                 return result;
             }
-
-            // If all validations pass
+            if (baseProduct?.ReorderLevel == 0 || baseProduct?.ReorderLevel < 0)
+            {
+                result.Success = false;
+                result.Message = $"El nivel de reorden no puede ser cero o negativo.";
+                return result;
+            }
+            if (baseProduct?.Discontinued == true)
+            {
+                result.Success = false;
+                result.Message = $"El producto no puede estar descontinuado.";
+                return result;
+            }
+            if (baseProduct?.SupplierID == 0 || baseProduct?.SupplierID < 0)
+            {
+                result.Success = false;
+                result.Message = $"El ID del proveedor no puede ser cero o negativo.";
+                return result;
+            }
+            if (baseProduct?.CategoryID == 0 || baseProduct?.CategoryID < 0)
+            {
+                result.Success = false;
+                result.Message = $"El ID de la categoría no puede ser cero o negativo.";
+                return result;
+            }
+            if (string.IsNullOrEmpty(baseProduct?.QuantityPerUnit))
+            {
+                result.Success = false;
+                result.Message = $"La cantidad por unidad es requerida.";
+                return result;
+            }
+          
             result.Success = true;
             result.Message = "El producto es válido.";
             return result;

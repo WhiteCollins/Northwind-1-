@@ -36,6 +36,7 @@ namespace Northwind.Shippers.Application.Services
                                  }).ToList();
 
                 result.Success = true;
+                result.Message = "Shipper successfully obtained.";
             }
             catch (Exception ex)
             {
@@ -68,6 +69,7 @@ namespace Northwind.Shippers.Application.Services
                         Phone = shipper.Phone,
                     };
                     result.Success = true;
+                    result.Message = "Id successfully obtained.";
                 }
             }
             catch (Exception ex)
@@ -99,6 +101,9 @@ namespace Northwind.Shippers.Application.Services
 
                 this.shippersRepository.Save(shipper);
                 result.Success = true;
+                result.Message = "Shipper successfully add.";
+
+
             }
             catch (Exception ex)
             {
@@ -108,6 +113,7 @@ namespace Northwind.Shippers.Application.Services
             }
 
             return result;
+
         }
 
         public ServiceResult Update(ShippersDtoBase shippersDtoBase)
@@ -130,6 +136,7 @@ namespace Northwind.Shippers.Application.Services
 
                 this.shippersRepository.Update(shipper);
                 result.Success = true;
+                result.Message = "Shipper successfully update.";
             }
             catch (Exception ex)
             {
@@ -161,6 +168,7 @@ namespace Northwind.Shippers.Application.Services
 
                 this.shippersRepository.Remove(shipper);
                 result.Success = true;
+                result.Message = "Shipper successfully remove.";
             }
             catch (Exception ex)
             {

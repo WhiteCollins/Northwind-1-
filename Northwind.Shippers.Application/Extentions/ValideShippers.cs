@@ -29,6 +29,30 @@ namespace Northwind.Shippers.Application.Extentions
                 result.Message = $"El número de teléfono es requerido.";
                 return result;
             }
+            if (baseShipper?.Phone.Length == 0)
+            {
+                result.Success = false;
+                result.Message = $"El número de teléfono no puede ser cero.";
+                return result;
+            }
+            if (baseShipper?.Phone.Length > 24)
+            {
+                result.Success = false;
+                result.Message = $"El número de teléfono no puede ser mayor a 24 caracteres.";
+                return result;
+            } if(baseShipper?.Phone.Length < 8)
+
+            {
+                result.Success = false;
+                result.Message = $"El número de teléfono no puede ser menor a 8 caracteres.";
+                return result;
+            }
+            if (baseShipper?.CompanyName.Length > 40)
+            {
+                result.Success = false;
+                result.Message = $"El nombre de la empresa no puede ser mayor a 40 caracteres.";
+                return result;
+            }
 
             return result;
         }

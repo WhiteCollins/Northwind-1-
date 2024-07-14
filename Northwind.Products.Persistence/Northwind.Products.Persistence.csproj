@@ -12,7 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Northwind.Products.Application\Northwind.Products.Application.csproj" />
     <ProjectReference Include="..\Northwind.Products.Domain\Northwind.Products.Domain.csproj" />
+    <ProjectReference Include="..\Northwind.Suppliers.Application\Northwind.Suppliers.Application.csproj" />
   </ItemGroup>
 
 </Project>

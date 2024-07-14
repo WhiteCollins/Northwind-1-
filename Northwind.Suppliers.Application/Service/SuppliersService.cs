@@ -45,7 +45,7 @@ namespace Northwind.Suppliers.Application.Services
                                  }).ToList();
 
                 result.Success = true;
-                result.Message = "Proveedores obtenidos exitosamente.";
+                result.Message = "Supplier successfully obtained.";
             }
             catch (Exception ex)
             {
@@ -87,7 +87,7 @@ namespace Northwind.Suppliers.Application.Services
                         HomePage = supplier.HomePage
                     };
                     result.Success = true;
-                    result.Message = "Proveedor obtenido exitosamente.";
+                    result.Message = "The supplier id successfully obtained.";
                 }
             }
             catch (Exception ex)
@@ -128,7 +128,7 @@ namespace Northwind.Suppliers.Application.Services
                 this.suppliersRepository.Save(supplier);
                 result.Result = supplier;
                 result.Success = true;
-                result.Message = "Proveedor guardado exitosamente.";
+                result.Message = "supplier save successfully obtained.";
             }
             catch (Exception ex)
             {
@@ -173,7 +173,7 @@ namespace Northwind.Suppliers.Application.Services
                 this.suppliersRepository.Update(supplier);
                 result.Result = supplier;
                 result.Success = true;
-                result.Message = "Proveedor actualizado exitosamente.";
+                result.Message = "Suppliers update successfully obtained.";
             }
             catch (Exception ex)
             {

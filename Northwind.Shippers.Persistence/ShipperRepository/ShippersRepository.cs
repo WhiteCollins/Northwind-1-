@@ -2,9 +2,6 @@
 using Northwind.Shippers.Domain.Entities;
 using Northwind.Shippers.Domain.Interface;
 using Northwind.Shippers.Persistence.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 
 using DomainEntities = Northwind.Shippers.Domain.Entities;
