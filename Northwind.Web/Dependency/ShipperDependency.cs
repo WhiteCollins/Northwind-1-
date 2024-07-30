@@ -1,7 +1,8 @@
-﻿
+﻿using Microsoft.Extensions.DependencyInjection;
 using Northwind.Web.IServices;
 
-namespace Northwind.Web.Dependency
+
+namespace Northwind.Web.DependencyInjection
 {
     public static class ShipperDependency
     {

@@ -1,7 +1,12 @@
+using Northwind.Web.DependencyInjection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Add Northwind Dependencies
+builder.Services.AddNorthwindDependencies();
 
 var app = builder.Build();
 
@@ -10,6 +15,7 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
 app.UseStaticFiles();
 
 app.UseRouting();
