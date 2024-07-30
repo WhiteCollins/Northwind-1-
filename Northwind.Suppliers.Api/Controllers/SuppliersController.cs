@@ -49,7 +49,7 @@ namespace Northwind.Suppliers.Api.Controllers
 
         // PUT api/<SuppliersController>
         [HttpPut("UpdateSuppliers")]
-        public IActionResult Put( SuppliersDtoUpdate suppliersDtoUpdate)
+        public IActionResult Put(SuppliersDtoUpdate suppliersDtoUpdate)
         {
             var result = this.supplierService.Update(suppliersDtoUpdate);
             if (!result.Success)
@@ -60,7 +60,7 @@ namespace Northwind.Suppliers.Api.Controllers
 
         // DELETE api/<SuppliersController>
         [HttpDelete("RemoveSuppliers")]
-        public IActionResult Delete( SuppliersDtoRemove suppliersDtoRemove)
+        public IActionResult Delete(SuppliersDtoRemove suppliersDtoRemove)
         {
             var result = this.supplierService.Remove(suppliersDtoRemove);
             if (!result.Success)

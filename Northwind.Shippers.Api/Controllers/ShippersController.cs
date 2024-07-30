@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Northwind.Shippers.Application.Contracts;
 using Northwind.Shippers.Application.Dtos;
-using Northwind.Shippers.Application.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,7 +14,7 @@ namespace Northwind.Shippers.Api.Controllers
 
         public ShippersController(IShippersService shipperService)
         {
-            this.shipperService=shipperService = shipperService ?? throw new ArgumentNullException(nameof(shipperService));
+            this.shipperService = shipperService = shipperService ?? throw new ArgumentNullException(nameof(shipperService));
         }
 
 
@@ -52,7 +51,7 @@ namespace Northwind.Shippers.Api.Controllers
 
         // POST api/<ShippersController>
         [HttpPost("SaveShippers")]
-        public void Post( Shippers.Application.Dtos.ShippersDtoSave  shippersDtoSave)
+        public void Post(Shippers.Application.Dtos.ShippersDtoSave shippersDtoSave)
         {
             var result = this.shipperService.Add(shippersDtoSave);
             if (result.Success)
@@ -76,7 +75,7 @@ namespace Northwind.Shippers.Api.Controllers
         [HttpDelete("RemoveShippers")]
         public IActionResult Delete(ShippersDtoRemove shippersDtoRemove)
         {
-                var result = this.shipperService.Remove(shippersDtoRemove);
+            var result = this.shipperService.Remove(shippersDtoRemove);
             if (result.Success)
                 return BadRequest(result);
             else

@@ -1,12 +1,11 @@
 ﻿using Northwind.Common.Data.Base;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace Northwind.Suppliers.Domain.Entities
 {
     [Table("Suppliers")]
-    public class Suppliers: AuditEntity<int>
+    public class Suppliers : AuditEntity<int>
     {
         [Column("SupplierID")]
         public override int Id { get; set; }
@@ -21,6 +20,6 @@ namespace Northwind.Suppliers.Domain.Entities
         public string? Phone { get; set; }
         public string? Fax { get; set; }
         public string? HomePage { get; set; }
-    
+
     }
 }

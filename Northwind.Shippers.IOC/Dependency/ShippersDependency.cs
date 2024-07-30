@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Northwind.Shippers.Application.Contracts;
+using Northwind.Shippers.Application.Services;
 using Northwind.Shippers.Domain.Interface;
 using Northwind.Shippers.Persistence.Repository;
-using Northwind.Shippers.Application.Services;
-using Northwind.Shippers.Application.Contracts;
 
 namespace Northwind.Shippers.IOC.Dependency
 {

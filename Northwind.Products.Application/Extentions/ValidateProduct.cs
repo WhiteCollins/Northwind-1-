@@ -59,7 +59,7 @@ namespace Northwind.Products.Application.Extensions
                 result.Message = $"El ID de la categoría no puede ser cero o negativo.";
                 return result;
             }
-          
+
             result.Success = true;
             result.Message = "El producto es válido.";
             return result;

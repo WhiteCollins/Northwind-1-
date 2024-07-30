@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Northwind.Products.Domain.Interface;
+using Microsoft.Extensions.Logging;
 using Northwind.Products.Domain.Entities;
+using Northwind.Products.Domain.Interface;
 using Northwind.Products.Persistence.Context;
 using System.Linq.Expressions;
-using Microsoft.Extensions.Logging;
 
 namespace Northwind.Products.Persistence.Repository
 {
@@ -46,7 +46,7 @@ namespace Northwind.Products.Persistence.Repository
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex,"Error obtaining the product.");
+                _logger.LogError(ex, "Error obtaining the product.");
                 throw;
             }
         }
@@ -102,7 +102,7 @@ namespace Northwind.Products.Persistence.Repository
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex,"Error adding the product.");
+                _logger.LogError(ex, "Error adding the product.");
                 throw;
             }
         }
@@ -136,7 +136,7 @@ namespace Northwind.Products.Persistence.Repository
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex,"Error updating the product.");
+                _logger.LogError(ex, "Error updating the product.");
                 throw;
             }
         }

@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
+using Northwind.Shippers.Application.Base;
 using Northwind.Shippers.Application.Contracts;
 using Northwind.Shippers.Application.Dtos;
-using Northwind.Shippers.Application.Base;
-using Northwind.Shippers.Domain.Interface;
 using Northwind.Shippers.Application.Extentions;
-using Northwind.Shippers.Domain.Entities;
+using Northwind.Shippers.Domain.Interface;
 
 namespace Northwind.Shippers.Application.Services
 {
@@ -129,7 +128,7 @@ namespace Northwind.Shippers.Application.Services
 
                 var shipper = new Domain.Entities.Shippers()
                 {
-                    Id = shippersDtoBase.ShipperID ,
+                    Id = shippersDtoBase.ShipperID,
                     CompanyName = shippersDtoBase.CompanyName,
                     Phone = shippersDtoBase.Phone,
                 };

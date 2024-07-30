@@ -160,9 +160,9 @@ namespace Northwind.Suppliers.Application.Extentions
                 result.Success = false;
                 result.Message = $"La página de inicio no puede ser mayor a 40 caracteres.";
                 return result;
-                }
-
-                return result;
             }
+
+            return result;
         }
     }
+}

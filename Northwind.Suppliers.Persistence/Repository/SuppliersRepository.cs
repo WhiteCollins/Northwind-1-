@@ -1,9 +1,8 @@
-﻿using System.Linq.Expressions;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
 using Northwind.Suppliers.Domain.Interface;
-using Northwind.Suppliers.Domain.Entities;
 using Northwind.Suppliers.Persistence.Context;
+using System.Linq.Expressions;
 
 namespace Northwind.Suppliers.Persistence.Repository
 {

@@ -19,7 +19,7 @@ namespace Northwind.Products.Api.Controllers
         public IActionResult Get()
         {
             var result = this.productService.GetAll();
-            if (!result.Success) 
+            if (!result.Success)
                 return BadRequest(result);
             else
                 return Ok(result);
@@ -29,27 +29,27 @@ namespace Northwind.Products.Api.Controllers
         public IActionResult Get(int id)
         {
             var result = this.productService.GetById(id);
-            if (!result.Success) 
+            if (!result.Success)
                 return BadRequest(result);
             else
                 return Ok(result);
         }
 
         [HttpPost("SaveProducts")]
-        public IActionResult Post( ProductDtoSave productDtoSave)
+        public IActionResult Post(ProductDtoSave productDtoSave)
         {
             var result = this.productService.Add(productDtoSave);
-            if (!result.Success) 
+            if (!result.Success)
                 return BadRequest(result);
             else
                 return Ok(result);
         }
 
         [HttpPost("UpdateProduct")]
-        public IActionResult Put( ProductDtoUpdate productDtoUpdate)
+        public IActionResult Put(ProductDtoUpdate productDtoUpdate)
         {
             var result = this.productService.Update(productDtoUpdate);
-            if (!result.Success) 
+            if (!result.Success)
                 return BadRequest(result);
             else
                 return Ok(result);
@@ -59,7 +59,7 @@ namespace Northwind.Products.Api.Controllers
         public IActionResult Delete(ProductDtoRemove productDtoRemove)
         {
             var result = this.productService.Remove(productDtoRemove);
-            if (!result.Success) 
+            if (!result.Success)
                 return BadRequest(result);
             else
                 return Ok(result);

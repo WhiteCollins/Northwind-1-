@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
-using Northwind.Products.Domain.Interface;
-using Northwind.Products.Domain.Entities;
 using Northwind.Products.Application.Contracts;
 using Northwind.Products.Application.Core;
 using Northwind.Products.Application.Dtos;
 using Northwind.Products.Application.Extensions;
+using Northwind.Products.Domain.Entities;
+using Northwind.Products.Domain.Interface;
 
 namespace Northwind.Products.Service
 {

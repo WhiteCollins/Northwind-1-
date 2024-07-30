@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using Northwind.Common.Data.Base;
+﻿using System.Linq.Expressions;
 
 namespace Northwind.Common.Data.Repository
 {

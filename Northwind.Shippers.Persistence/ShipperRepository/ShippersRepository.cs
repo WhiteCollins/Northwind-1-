@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Northwind.Shippers.Domain.Entities;
-using Northwind.Shippers.Domain.Interface;
+﻿using Northwind.Shippers.Domain.Interface;
 using Northwind.Shippers.Persistence.Context;
 using System.Linq.Expressions;
 

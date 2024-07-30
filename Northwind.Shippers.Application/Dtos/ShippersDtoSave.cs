@@ -2,8 +2,8 @@
 
 namespace Northwind.Shippers.Application.Dtos
 {
-    public class ShippersDtoSave: ShippersDtoBase
+    public class ShippersDtoSave : ShippersDtoBase
     {
-  
+
     }
 }

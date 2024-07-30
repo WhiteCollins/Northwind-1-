@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Northwind.Suppliers.Domain.Entities;
 
 namespace Northwind.Suppliers.Persistence.Context
 {
-    public class NorthwindContext: DbContext
+    public class NorthwindContext : DbContext
     {
         #region "Constructor"
 

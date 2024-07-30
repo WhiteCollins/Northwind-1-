@@ -2,7 +2,7 @@
 
 namespace Northwind.Shippers.Application.Dtos
 {
-    public class ShippersDtoGetAll: ShippersDtoBase
+    public class ShippersDtoGetAll : ShippersDtoBase
     {
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Northwind.Infraestructure.Data.Logger.Interfaces
 {
-    public class LoggerService: ILoggerService
+    public class LoggerService : ILoggerService
     {
     }
 }

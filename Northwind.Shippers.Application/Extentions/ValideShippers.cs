@@ -40,7 +40,8 @@ namespace Northwind.Shippers.Application.Extentions
                 result.Success = false;
                 result.Message = $"El número de teléfono no puede ser mayor a 24 caracteres.";
                 return result;
-            } if(baseShipper?.Phone.Length < 8)
+            }
+            if (baseShipper?.Phone.Length < 8)
 
             {
                 result.Success = false;

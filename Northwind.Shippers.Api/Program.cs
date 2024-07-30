@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Northwind.Shippers.Domain.Interface;
+using Northwind.Shippers.IOC.Dependency;
 using Northwind.Shippers.Persistence.Context;
 using Northwind.Shippers.Persistence.Repository;
-using Northwind.Shippers.IOC.Dependency;
 
 var builder = WebApplication.CreateBuilder(args);
 
