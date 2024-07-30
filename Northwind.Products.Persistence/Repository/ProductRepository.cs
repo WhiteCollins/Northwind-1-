@@ -46,7 +46,7 @@ namespace Northwind.Products.Persistence.Repository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error obtaining the product.", ex);
+                _logger.LogError(ex,"Error obtaining the product.");
                 throw;
             }
         }
@@ -68,12 +68,12 @@ namespace Northwind.Products.Persistence.Repository
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                _logger.LogError("Concurrency conflict: The entity was modified or deleted by another process.", ex);
+                _logger.LogError(ex, "Concurrency conflict: The entity was modified or deleted by another process.");
                 throw new InvalidOperationException("Concurrency conflict: The entity was modified or deleted by another process.", ex);
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error removing the product.", ex);
+                _logger.LogError(ex, "Error removing the product.");
                 throw;
             }
         }
@@ -102,7 +102,7 @@ namespace Northwind.Products.Persistence.Repository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error adding the product.", ex);
+                _logger.LogError(ex,"Error adding the product.");
                 throw;
             }
         }
@@ -136,7 +136,7 @@ namespace Northwind.Products.Persistence.Repository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error updating the product.", ex);
+                _logger.LogError(ex,"Error updating the product.");
                 throw;
             }
         }

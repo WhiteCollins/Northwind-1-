@@ -74,7 +74,7 @@ namespace Northwind.Products.Service
                         Discontinued = product.Discontinued
                     };
                     result.Success = true;
-                    result.Message = "Product successfully obtained.";
+                    result.Message = "The id Product successfully obtained.";
                 }
             }
             catch (Exception ex)
