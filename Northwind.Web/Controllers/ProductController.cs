@@ -1,7 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Northwind.Web.IServices;
 using Northwind.Web.Models;
-
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using Northwind.Web.Result.ProductResult;
+using Northwind.Web.Result;
 
 namespace Northwind.Web.Controllers
 {
@@ -118,3 +123,4 @@ namespace Northwind.Web.Controllers
         }
     }
 }
+

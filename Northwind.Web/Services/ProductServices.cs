@@ -1,9 +1,9 @@
-﻿
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Northwind.Web.IServices;
 using Northwind.Web.Models;
-using Northwind.Web.Result;
 using Northwind.Web.Result.ProductResult;
+using Northwind.Web.Result;
+using System.Text;
 
 public class ProductServices : IProductsServices
 {
@@ -17,10 +17,15 @@ public class ProductServices : IProductsServices
     public async Task<ProductGetListResult> GetProductsAsync()
     {
         var response = await _httpClient.GetAsync("http://localhost:5125/api/Product/GetProducts");
-        response.EnsureSuccessStatusCode();
         var apiResponse = await response.Content.ReadAsStringAsync();
+
+        // Agregar log para la respuesta
+        Console.WriteLine($"Response: {apiResponse}");
+
+        response.EnsureSuccessStatusCode();
         return JsonConvert.DeserializeObject<ProductGetListResult>(apiResponse);
     }
+
 
     public async Task<ProductGetResult> GetProductByIdAsync(int id)
     {
@@ -33,7 +38,7 @@ public class ProductServices : IProductsServices
     public async Task<BaseResult> CreateProductAsync(ProductBaseModel product)
     {
         var jsonContent = JsonConvert.SerializeObject(product);
-        var contentString = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
+        var contentString = new StringContent(jsonContent, Encoding.UTF8, "application/json");
         var response = await _httpClient.PostAsync("http://localhost:5125/api/Product/SaveProduct", contentString);
         response.EnsureSuccessStatusCode();
         var apiResponse = await response.Content.ReadAsStringAsync();
@@ -43,7 +48,7 @@ public class ProductServices : IProductsServices
     public async Task<BaseResult> UpdateProductAsync(int id, ProductBaseModel product)
     {
         var jsonContent = JsonConvert.SerializeObject(product);
-        var contentString = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
+        var contentString = new StringContent(jsonContent, Encoding.UTF8, "application/json");
         var response = await _httpClient.PutAsync($"http://localhost:5125/api/Product/UpdateProduct?id={id}", contentString);
         response.EnsureSuccessStatusCode();
         var apiResponse = await response.Content.ReadAsStringAsync();
@@ -58,4 +63,3 @@ public class ProductServices : IProductsServices
         return JsonConvert.DeserializeObject<BaseResult>(apiResponse);
     }
 }
-
