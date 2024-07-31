@@ -3,6 +3,9 @@ using Northwind.Web.Result.SuppliersResult;
 using Northwind.Web.Result;
 using Newtonsoft.Json;
 using Northwind.Web.IServices;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System;
 
 public class SupplierServices : ISuppliersServices
 {
@@ -15,45 +18,110 @@ public class SupplierServices : ISuppliersServices
 
     public async Task<SuppliersGetListResult> GetSuppliersAsync()
     {
-        var response = await _httpClient.GetAsync("http://localhost:5182/api/Suppliers/GetSuppliers");
-        response.EnsureSuccessStatusCode();
-        var apiResponse = await response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<SuppliersGetListResult>(apiResponse);
+        try
+        {
+            var response = await _httpClient.GetAsync("http://localhost:5182/api/Suppliers/GetSuppliers");
+            response.EnsureSuccessStatusCode();
+            var apiResponse = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<SuppliersGetListResult>(apiResponse);
+        }
+        catch (HttpRequestException e)
+        {
+            Console.WriteLine($"Request Exception: {e.Message}");
+            throw;
+        }
+        catch (JsonSerializationException e)
+        {
+            Console.WriteLine($"Serialization Exception: {e.Message}");
+            throw;
+        }
     }
 
-    public async Task<SupplierGetResult> GetSupplierByIdAsync(int id)
+    public async Task<SupplierGetResult> GetSupplierByIdAsync(int SupplierID)
     {
-        var response = await _httpClient.GetAsync($"http://localhost:5182/api/Suppliers/GetSupplierById?id={id}");
-        response.EnsureSuccessStatusCode();
-        var apiResponse = await response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<SupplierGetResult>(apiResponse);
+        try
+        {
+            var response = await _httpClient.GetAsync($"http://localhost:5182/api/Suppliers/GetSupplierById?id={SupplierID}");
+            response.EnsureSuccessStatusCode();
+            var apiResponse = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<SupplierGetResult>(apiResponse);
+        }
+        catch (HttpRequestException e)
+        {
+            Console.WriteLine($"Request Exception: {e.Message}");
+            throw;
+        }
+        catch (JsonSerializationException e)
+        {
+            Console.WriteLine($"Serialization Exception: {e.Message}");
+            throw;
+        }
     }
 
     public async Task<BaseResult> CreateSupplierAsync(SuppliersBaseModel supplier)
     {
-        var jsonContent = JsonConvert.SerializeObject(supplier);
-        var contentString = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
-        var response = await _httpClient.PostAsync("http://localhost:5182/api/Suppliers/SaveSuppliers", contentString);
-        response.EnsureSuccessStatusCode();
-        var apiResponse = await response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<BaseResult>(apiResponse);
+        try
+        {
+            var jsonContent = JsonConvert.SerializeObject(supplier);
+            var contentString = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync("http://localhost:5182/api/Suppliers/SaveSuppliers", contentString);
+            response.EnsureSuccessStatusCode();
+            var apiResponse = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<BaseResult>(apiResponse);
+        }
+        catch (HttpRequestException e)
+        {
+            Console.WriteLine($"Request Exception: {e.Message}");
+            throw;
+        }
+        catch (JsonSerializationException e)
+        {
+            Console.WriteLine($"Serialization Exception: {e.Message}");
+            throw;
+        }
     }
 
     public async Task<BaseResult> UpdateSupplierAsync(int id, SuppliersBaseModel supplier)
     {
-        var jsonContent = JsonConvert.SerializeObject(supplier);
-        var contentString = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
-        var response = await _httpClient.PutAsync($"http://localhost:5182/api/Suppliers/UpdateSupplier?id={id}", contentString);
-        response.EnsureSuccessStatusCode();
-        var apiResponse = await response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<BaseResult>(apiResponse);
+        try
+        {
+            var jsonContent = JsonConvert.SerializeObject(supplier);
+            var contentString = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
+            var response = await _httpClient.PutAsync($"http://localhost:5182/api/Suppliers/UpdateSupplier?id={id}", contentString);
+            response.EnsureSuccessStatusCode();
+            var apiResponse = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<BaseResult>(apiResponse);
+        }
+        catch (HttpRequestException e)
+        {
+            Console.WriteLine($"Request Exception: {e.Message}");
+            throw;
+        }
+        catch (JsonSerializationException e)
+        {
+            Console.WriteLine($"Serialization Exception: {e.Message}");
+            throw;
+        }
     }
 
-    public async Task<BaseResult> DeleteSupplierAsync(int id)
+    public async Task<BaseResult> DeleteSupplierAsync(int SupplierID)
     {
-        var response = await _httpClient.DeleteAsync($"http://localhost:5182/api/Suppliers/DeleteSupplier?id={id}");
-        response.EnsureSuccessStatusCode();
-        var apiResponse = await response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<BaseResult>(apiResponse);
+        try
+        {
+            var response = await _httpClient.DeleteAsync($"http://localhost:5182/api/Suppliers/DeleteSupplier?id={SupplierID}");
+            response.EnsureSuccessStatusCode();
+            var apiResponse = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<BaseResult>(apiResponse);
+        }
+        catch (HttpRequestException e)
+        {
+            Console.WriteLine($"Request Exception: {e.Message}");
+            throw;
+        }
+        catch (JsonSerializationException e)
+        {
+            Console.WriteLine($"Serialization Exception: {e.Message}");
+            throw;
+        }
     }
 }

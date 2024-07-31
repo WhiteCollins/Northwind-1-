@@ -2,7 +2,6 @@
 using Northwind.Web.IServices;
 using Northwind.Web.Models;
 
-
 namespace ShopMicroServices.Web.Controllers
 {
     public class SuppliersController : Controller
