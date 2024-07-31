@@ -1,3 +1,5 @@
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Northwind.Web.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 // Add Northwind Dependencies
-builder.Services.AddNorthwindDependencies();
+builder.Services.AddNorthwindDependencies(builder.Configuration);
 
 var app = builder.Build();
 

@@ -4,123 +4,119 @@ using Northwind.Web.Models;
 using Northwind.Web.Result;
 using Northwind.Web.Result.ShippersResult;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 public class ShipperServices : IShippersServices
 {
     private readonly HttpClient _httpClient;
 
-    public ShipperServices(HttpClient httpClient, IConfiguration configuration)
+    public ShipperServices(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }
 
     public async Task<ShippersGetListResult> GetShippersAsync()
     {
-        try
+        var response = await _httpClient.GetAsync("Shippers/GetShippers");
+
+        if (!response.IsSuccessStatusCode)
         {
-            var response = await _httpClient.GetAsync("http://localhost:5296/api/Shippers/GetShippers");
-            response.EnsureSuccessStatusCode();
-            var apiResponse = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<ShippersGetListResult>(apiResponse);
+            throw new HttpRequestException($"Error fetching shippers: {response.ReasonPhrase}");
         }
-        catch (HttpRequestException e)
+
+        var apiResponse = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<ShippersGetListResult>(apiResponse);
+
+        if (result == null)
         {
-            Console.WriteLine($"Request Exception: {e.Message}");
-            throw;
+            throw new JsonSerializationException("Deserialization of ShippersGetListResult returned null.");
         }
-        catch (JsonSerializationException e)
-        {
-            Console.WriteLine($"Serialization Exception: {e.Message}");
-            throw;
-        }
+
+        return result;
     }
 
-    public async Task<ShipperGetResult> GetShipperByIdAsync(int id)
+    public async Task<ShipperGetResult> GetShipperByIdAsync(int shipperId)
     {
-        try
+        var response = await _httpClient.GetAsync($"Shippers/GetShipperById?id={shipperId}");
+
+        if (!response.IsSuccessStatusCode)
         {
-            var response = await _httpClient.GetAsync($"http://localhost:5296/api/Shippers/GetShipperById?id={id}");
-            response.EnsureSuccessStatusCode();
-            var apiResponse = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<ShipperGetResult>(apiResponse);
+            throw new HttpRequestException($"Error fetching shipper by id: {response.ReasonPhrase}");
         }
-        catch (HttpRequestException e)
+
+        var apiResponse = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<ShipperGetResult>(apiResponse);
+
+        if (result == null)
         {
-            Console.WriteLine($"Request Exception: {e.Message}");
-            throw;
+            throw new JsonSerializationException("Deserialization of ShipperGetResult returned null.");
         }
-        catch (JsonSerializationException e)
-        {
-            Console.WriteLine($"Serialization Exception: {e.Message}");
-            throw;
-        }
+
+        return result;
     }
 
     public async Task<BaseResult> CreateShipperAsync(ShippersBaseModel shipper)
     {
-        try
+        var jsonContent = JsonConvert.SerializeObject(shipper);
+        var contentString = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+        var response = await _httpClient.PostAsync("Shippers/SaveShipper", contentString);
+
+        if (!response.IsSuccessStatusCode)
         {
-            var jsonContent = JsonConvert.SerializeObject(shipper);
-            var contentString = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync("http://localhost:5296/api/Shippers/SaveShippers", contentString);
-            response.EnsureSuccessStatusCode();
-            var apiResponse = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<BaseResult>(apiResponse);
+            throw new HttpRequestException($"Error creating shipper: {response.ReasonPhrase}");
         }
-        catch (HttpRequestException e)
+
+        var apiResponse = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<BaseResult>(apiResponse);
+
+        if (result == null)
         {
-            Console.WriteLine($"Request Exception: {e.Message}");
-            throw;
+            throw new JsonSerializationException("Deserialization of BaseResult returned null.");
         }
-        catch (JsonSerializationException e)
-        {
-            Console.WriteLine($"Serialization Exception: {e.Message}");
-            throw;
-        }
+
+        return result;
     }
 
     public async Task<BaseResult> UpdateShipperAsync(int id, ShippersBaseModel shipper)
     {
-        try
+        var jsonContent = JsonConvert.SerializeObject(shipper);
+        var contentString = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+        var response = await _httpClient.PutAsync($"Shippers/UpdateShipper?id={id}", contentString);
+
+        if (!response.IsSuccessStatusCode)
         {
-            var jsonContent = JsonConvert.SerializeObject(shipper);
-            var contentString = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
-            var response = await _httpClient.PutAsync($"http://localhost:5296/api/Shippers/UpdateShipper?id={id}", contentString);
-            response.EnsureSuccessStatusCode();
-            var apiResponse = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<BaseResult>(apiResponse);
+            throw new HttpRequestException($"Error updating shipper: {response.ReasonPhrase}");
         }
-        catch (HttpRequestException e)
+
+        var apiResponse = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<BaseResult>(apiResponse);
+
+        if (result == null)
         {
-            Console.WriteLine($"Request Exception: {e.Message}");
-            throw;
+            throw new JsonSerializationException("Deserialization of BaseResult returned null.");
         }
-        catch (JsonSerializationException e)
-        {
-            Console.WriteLine($"Serialization Exception: {e.Message}");
-            throw;
-        }
+
+        return result;
     }
 
-    public async Task<BaseResult> DeleteShipperAsync(int id)
+    public async Task<BaseResult> DeleteShipperAsync(int shipperId)
     {
-        try
+        var response = await _httpClient.DeleteAsync($"Shippers/DeleteShipper?id={shipperId}");
+
+        if (!response.IsSuccessStatusCode)
         {
-            var response = await _httpClient.DeleteAsync($"http://localhost:5296/api/Shippers/DeleteShipper?id={id}");
-            response.EnsureSuccessStatusCode();
-            var apiResponse = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<BaseResult>(apiResponse);
+            throw new HttpRequestException($"Error deleting shipper: {response.ReasonPhrase}");
         }
-        catch (HttpRequestException e)
+
+        var apiResponse = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<BaseResult>(apiResponse);
+
+        if (result == null)
         {
-            Console.WriteLine($"Request Exception: {e.Message}");
-            throw;
+            throw new JsonSerializationException("Deserialization of BaseResult returned null.");
         }
-        catch (JsonSerializationException e)
-        {
-            Console.WriteLine($"Serialization Exception: {e.Message}");
-            throw;
-        }
+
+        return result;
     }
 }
